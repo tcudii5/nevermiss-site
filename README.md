@@ -1,4 +1,4 @@
-# NeverMiss — AI Receptionist + CRM Website
+# SBC Media — AI Receptionist + CRM Website
 
 Production-ready marketing site for an AI receptionist / CRM automation business
 serving local service companies. Built with Next.js 16 (App Router), React 19,
@@ -6,7 +6,7 @@ TypeScript and Tailwind CSS.
 
 **Live:** https://nevermiss-site.netlify.app
 
-> **`NeverMiss` is a placeholder brand name.** See [Renaming the brand](#renaming-the-brand).
+> Brand is set to **SBC Media** in `src/content/site.config.ts`.
 
 ---
 
@@ -101,8 +101,8 @@ text, 3:1 for large).
 Everything flows from one file. Edit `src/content/site.config.ts`:
 
 ```ts
-name: 'NeverMiss',              // nav, footer, page titles, OG image
-legalName: 'NeverMiss AI, LLC', // copyright line, legal pages
+name: 'SBC Media',              // nav, footer, page titles, OG image
+legalName: 'SBC Media',      // copyright line, legal pages
 ```
 
 Then swap the mark in `src/components/layout/LogoMark.tsx` — replace the inline

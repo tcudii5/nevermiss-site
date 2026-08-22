@@ -4,9 +4,15 @@
  * every page reads from this file.
  */
 export const site = {
-  /** PLACEHOLDER BRAND — change these two lines to rename the whole site. */
-  name: 'NeverMiss',
-  legalName: 'NeverMiss AI, LLC',
+  name: 'SBC Media',
+
+  /**
+   * Legal entity name — used in the copyright line, Privacy Policy and Terms.
+   * Deliberately has NO entity suffix: the LLC is still in formation, and
+   * asserting "LLC" before registration is a misrepresentation. Change this to
+   * the exact registered name (e.g. "SBC Media LLC") once the filing clears.
+   */
+  legalName: 'SBC Media',
 
   tagline: 'Never Let Another Lead Slip Away.',
   description:
