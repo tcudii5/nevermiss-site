@@ -1,8 +1,10 @@
 # NeverMiss — AI Receptionist + CRM Website
 
 Production-ready marketing site for an AI receptionist / CRM automation business
-serving local service companies. Built with Next.js 15 (App Router), React 19,
+serving local service companies. Built with Next.js 16 (App Router), React 19,
 TypeScript and Tailwind CSS.
+
+**Live:** https://nevermiss-site.netlify.app
 
 > **`NeverMiss` is a placeholder brand name.** See [Renaming the brand](#renaming-the-brand).
 
@@ -23,7 +25,7 @@ Other scripts:
 | `npm run dev` | Dev server with hot reload |
 | `npm run build` | Production build |
 | `npm start` | Serve the production build locally |
-| `npm run lint` | ESLint (next/core-web-vitals + TypeScript rules) |
+| `npm run lint` | ESLint via the CLI — `next lint` was removed in Next 16 |
 | `npm run typecheck` | `tsc --noEmit` |
 
 The site runs fully without any credentials. Unconfigured integrations render an
