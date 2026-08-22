@@ -22,11 +22,14 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close the mobile sheet on navigation.
-  useEffect(() => {
+  // Close the mobile sheet on navigation. Adjusting state during render (rather
+  // than in an effect) avoids the extra render pass an effect-based reset causes.
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
     setOpen(false);
     setSolutionsOpen(false);
-  }, [pathname]);
+  }
 
   // Lock body scroll while the mobile sheet is open.
   useEffect(() => {

@@ -26,14 +26,25 @@ export function ChatDemo() {
   const [typing, setTyping] = useState(false);
   const [runId, setRunId] = useState(0);
 
-  const finished = visible >= chatScript.length;
+  /**
+   * Reduced-motion users get the completed transcript immediately. Deriving it
+   * at render (instead of pushing it through an effect) keeps the component to
+   * a single render pass and satisfies react-hooks/set-state-in-effect.
+   */
+  // Replay resets the transcript during render rather than from inside the
+  // effect, so the rewind and the restart land in the same render pass.
+  const [lastRun, setLastRun] = useState(runId);
+  if (lastRun !== runId) {
+    setLastRun(runId);
+    setVisible(0);
+    setTyping(false);
+  }
+
+  const shownCount = reduce ? chatScript.length : visible;
+  const finished = shownCount >= chatScript.length;
 
   useEffect(() => {
-    if (reduce) {
-      setVisible(chatScript.length);
-      return;
-    }
-    if (!inView) return;
+    if (reduce || !inView) return;
 
     let cancelled = false;
     const timers: number[] = [];
@@ -58,8 +69,6 @@ export function ChatDemo() {
       );
     };
 
-    setVisible(0);
-    setTyping(false);
     timers.push(window.setTimeout(() => play(0), 400));
 
     return () => {
@@ -73,7 +82,7 @@ export function ChatDemo() {
     const el = scrollRef.current;
     if (!el) return;
     el.scrollTo({ top: el.scrollHeight, behavior: reduce ? 'auto' : 'smooth' });
-  }, [visible, typing, reduce]);
+  }, [shownCount, typing, reduce]);
 
   const replay = useCallback(() => setRunId((n) => n + 1), []);
 
@@ -123,7 +132,7 @@ export function ChatDemo() {
                   Missed call · text sent automatically
                 </div>
 
-                {chatScript.slice(0, visible).map((turn, index) => (
+                {chatScript.slice(0, shownCount).map((turn, index) => (
                   <motion.div
                     key={`${runId}-${index}`}
                     initial={reduce ? false : { opacity: 0, y: 12, scale: 0.97 }}
