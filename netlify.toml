@@ -1,0 +1,27 @@
+# Netlify configuration.
+# The Next.js runtime plugin is installed automatically by Netlify when it
+# detects Next.js, so App Router routes, the /api/lead function, image
+# optimization and the sitemap all work without extra setup.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Security headers. Applied to every route.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+    X-DNS-Prefetch-Control = "on"
+
+# Long-cache immutable build assets.
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

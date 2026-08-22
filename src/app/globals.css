@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-signal-400/25 text-signal-50;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-signal-400 ring-offset-2 ring-offset-canvas rounded-sm;
+  }
+
+  /* Scrollbar — subtle, matches the dark canvas */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #07090e;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1e2837;
+    border-radius: 999px;
+    border: 2px solid #07090e;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2a3648;
+  }
+}
+
+@layer components {
+  /* Frosted panel used for product surfaces. Glass only where content sits
+     over a gradient/glow — never as a blanket treatment. */
+  .glass {
+    @apply border border-white/[0.07] bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  .hairline {
+    @apply border border-surface-border/80;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-white via-white to-ink-muted bg-clip-text text-transparent;
+  }
+
+  .accent-gradient {
+    @apply bg-gradient-to-r from-signal-300 via-signal-400 to-ion-400 bg-clip-text text-transparent;
+  }
+
+  /* Radial spotlight behind hero / CTA sections */
+  .spotlight::before {
+    content: '';
+    position: absolute;
+    inset: -40% -10% auto -10%;
+    height: 720px;
+    background: radial-gradient(
+      60% 50% at 50% 0%,
+      rgba(52, 224, 161, 0.16) 0%,
+      rgba(91, 121, 255, 0.08) 38%,
+      transparent 72%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+@layer utilities {
+  .mask-fade-b {
+    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
